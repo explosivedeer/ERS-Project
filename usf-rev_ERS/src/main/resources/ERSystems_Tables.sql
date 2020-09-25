@@ -1,0 +1,44 @@
+create table ERS_USERS (
+	ERS_USERS_ID serial primary key not null,
+	ERS_USERNAME VARCHAR(200) unique not null,
+	ERS_PASSWORD VARCHAR(200) not null,
+	USER_FIRST_NAME VARCHAR(200) not null,
+	USER_LAST_NAME VARCHAR(200) not null,
+	USER_EMAIL VARCHAR(200) not null,
+	USER_ROLE_ID integer not null references ERS_USER_ROLES (ERS_USER_ROLE_ID)
+);
+
+create table ERS_USER_ROLES (
+	ERS_USER_ROLE_ID serial primary key not null,
+	USER_ROLE integer not null
+);
+
+create table ERS_REIMBURSEMENT (
+	REIMB_ID serial primary key not null,
+	REIMB_AMOUNT integer not null,
+	REIMB_SUBMITTED timestamp with time zone default current_timestamp not null,
+	REIMB_RESOLVED timestamp with time zone default current_timestamp not null,
+	REIMB_DESCRIPTION VARCHAR(250),
+	REIMB_RECEIPT bytea not null,
+	REIMB_AUTHOR integer not null references ERS_USERS (ERS_USERS_ID),
+	REIMB_RESOLVER integer references ERS_USERS (ERS_USERS_ID),
+	REMIB_STATUS_ID integer not null references ERS_REIMBURSEMENT_STATUS (REIMB_STATUS_ID),
+	REIMB_TYPE_ID integer not null references ERS_REIMBURSEMENT_TYPE (REIMB_TYPE_ID)
+);
+
+create table ERS_REIMBURSEMENT_STATUS (
+	REIMB_STATUS_ID serial primary key not null,
+	REIMB_STATUS VARCHAR(10) not null
+);
+
+create table ERS_REIMBURSEMENT_TYPE (
+	REIMB_TYPE_ID serial primary key not null,
+	REIMB_TYPE VARCHAR(20) not null
+);
+
+--modifiers
+drop table ERS_USERS;
+drop table ERS_USER_ROLES;
+drop table ERS_REIMBURSEMENT;
+drop table ERS_REIMBURSEMENT_STATUS;
+drop table ERS_REIMBURSEMENT_TYPE;
