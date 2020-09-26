@@ -6,6 +6,8 @@ public interface DaoContract<T, I> {
 
 	List<T> findAll();
 	
+	boolean verifyUser(T t);
+	
 	T findById(I i);
 	
 	int update(T t);
@@ -13,4 +15,6 @@ public interface DaoContract<T, I> {
 	int create(T t);
 	
 	T delete(I i);
+	
+	T findByUsername(String username);
 }
