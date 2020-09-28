@@ -8,6 +8,7 @@ public class User {
 	private String password;
 	
 	//fields we get from database
+	private int role;
 	private String firstname;
 	private String lastname;
 	private String email;
@@ -44,6 +45,14 @@ public class User {
 		this.password = password;
 	}
 	
+	public int getRole() {
+		return role;
+	}
+	
+	public void setRole(int role) {
+		this.role = role;
+	}
+	
 	public String getFirstname() {
 		return firstname;
 	}
@@ -71,7 +80,7 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "{ \"user\":{\"id\":"+id+", \"username\": \""+username+"\", \"password\":\""+password+"\"}}";
+		return "{ \"user\":{\"id\":"+id+", \"username\": \""+username+"\", \"password\":\""+password+"\", \"role\":\""+username+"\"}}";
 	}
 	//This is formatting for JSON
 	
@@ -81,7 +90,8 @@ public class User {
 	 * 		"user":{
 	 * 			"id":0,
 	 * 			"username":"tom",
-	 * 			"password":"pass"
+	 * 			"password":"pass",
+	 * 			"role":"roll"
 	 * 		}
 	 * }
 	 * 
