@@ -17,7 +17,7 @@ add our own theme!
 # Functions
 Functions that are currently implemented and tested to be working between the Java Application and Database.
 
-## Currently Implemented:**
+## Currently Implemented:
 
 ### Login Authentication:
 Database will return ERS_USERS_ID if username/password combination is valid. Otherwise, it will return -1. Java Application will return true or false, and will set the User Object's ID to ERS_USER_ID if valid.
