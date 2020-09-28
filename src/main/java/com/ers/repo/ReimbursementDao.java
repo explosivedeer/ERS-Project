@@ -19,7 +19,7 @@ public class ReimbursementDao implements DaoContract<Reimbursement, Integer> {
 	public List<Reimbursement> findAll() {
 		List<Reimbursement> reimb = new LinkedList<>();
 		try(Connection conn = ConnectionUtil.getInstance().getConnection()) {
-			String sql = "select * from ERS_REIMBURSEMENT where REIMB_AUTHOR = ?";
+			String sql = "select * from ERS_REIMBURSEMENT";
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
