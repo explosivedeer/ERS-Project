@@ -12,8 +12,10 @@ public class Reimbursement {
 
 	// pass to database
 	private int author;
+	private String receipt;
 	private int statusid;
 	private int typeid;
+	
 	
 	
 	public Reimbursement(int amount, String submitted, String description, int author) {
@@ -83,6 +85,14 @@ public class Reimbursement {
 
 	public void setAuthor(int author) {
 		this.author = author;
+	}
+	
+	public String getReceipt() {
+		return receipt;
+	}
+	
+	public void setReceipt(String receipt) {
+		this.receipt = receipt;
 	}
 
 	public int getStatusid() {

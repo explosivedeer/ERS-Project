@@ -19,7 +19,7 @@ create table ERS_REIMBURSEMENT (
 	REIMB_SUBMITTED timestamp with time zone default current_timestamp not null,
 	REIMB_RESOLVED timestamp with time zone default current_timestamp,
 	REIMB_DESCRIPTION VARCHAR(250),
-	REIMB_RECEIPT bytea not null,
+	REIMB_RECEIPT bytea,
 	REIMB_AUTHOR integer not null references ERS_USERS (ERS_USERS_ID),
 	REIMB_RESOLVER integer references ERS_USERS (ERS_USERS_ID),
 	REIMB_STATUS_ID integer not null references ERS_REIMBURSEMENT_STATUS (REIMB_STATUS_ID),

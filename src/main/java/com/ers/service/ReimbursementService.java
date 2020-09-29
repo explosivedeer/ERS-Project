@@ -16,5 +16,9 @@ public class ReimbursementService {
 	public List<Reimbursement> findAll() {
 		return rd.findAll();
 	}
+	
+	public int create(Reimbursement t) {
+		return rd.create(t);
+	}
 
 }

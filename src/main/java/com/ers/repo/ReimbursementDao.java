@@ -55,8 +55,34 @@ public class ReimbursementDao implements DaoContract<Reimbursement, Integer> {
 
 	@Override
 	public int create(Reimbursement t) {
-		// TODO Auto-generated method stub
-		return 0;
+		Connection conn;
+		int resultId = 0;
+		try {
+			conn = ConnectionUtil.getInstance().getConnection();
+			String sql = "{? = call openReimb(?,?,?,?,?)}";
+			CallableStatement cs = conn.prepareCall(sql);
+			cs.registerOutParameter(1, Types.INTEGER);
+			cs.setInt(2, t.getAmount());
+			cs.setString(3, t.getDescription());
+			cs.setInt(4, t.getAuthor());
+			cs.setInt(5, t.getTypeid());
+			cs.setInt(6, t.getStatusid());
+			
+			cs.execute();
+			
+			resultId = cs.getInt(1);
+			if (resultId == -1) {
+				return -1;
+			}
+			cs.close();
+			conn.close();
+			
+			t.setStatusid(resultId);
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return resultId;
 	}
 
 	@Override
