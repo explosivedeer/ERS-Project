@@ -23,7 +23,8 @@ public class ReimbursementDao implements DaoContract<Reimbursement, Integer> {
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
-				reimb.add(new Reimbursement(rs.getInt("reimb_amount"), 
+				reimb.add(new Reimbursement(rs.getInt("reimb_id"),
+											rs.getInt("reimb_amount"), 
 											rs.getString("reimb_submitted"), 
 											rs.getString("reimb_description"), 
 											rs.getInt("reimb_author")));

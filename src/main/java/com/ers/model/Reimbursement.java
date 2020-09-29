@@ -18,8 +18,9 @@ public class Reimbursement {
 	
 	
 	
-	public Reimbursement(int amount, String submitted, String description, int author) {
+	public Reimbursement(int id, int amount, String submitted, String description, int author) {
 		super();
+		this.id = id;
 		this.amount = amount;
 		this.submitted = submitted;
 		this.description = description;

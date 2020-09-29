@@ -12,15 +12,16 @@ public class ReimbursementDriver {
 	public static void main(String[] args) {
 		
 		ReimbursementService rs = new ReimbursementService();
+		User user = new User();
 		System.out.println("ReimbursementService.class");
 		System.out.println("findAll()");
 		System.out.println("--------------------------");
 		System.out.println("TEST RETURN JSON RESULT:");
+		user.setId(1);
 		System.out.println(rs.findAll());
 		System.out.println("--------------------------");
 		System.out.println("create(t)");
 		Reimbursement reimb = new Reimbursement();
-		User user = new User();
 		System.out.println("amount:");
 		reimb.setAmount(sc.nextInt());
 		System.out.println("description:");
