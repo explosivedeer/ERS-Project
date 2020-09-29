@@ -103,7 +103,7 @@ public class Reimbursement {
 
 	@Override
 	public String toString() {
-		return "{ \"reimbursement\":{\"id\":"+id+", \"amount\": \""+amount+"\", \"submitted\": \""+submitted+"\", \"description\": \""+description+"\"}}";
+		return "{ \"reimbursement\":{\"id\":"+id+", \"amount\": \""+amount+"\", \"submitted\": \""+submitted+"\", \"description\": \""+description+"\", \"author\": \""+author+"\"}}";
 	}
 	
 	// ie from user "{ \"user\":{\"id\":"+id+", \"username\": \""+username+"\", \"password\":\""+password+"\"}}";
