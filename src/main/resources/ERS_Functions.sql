@@ -26,14 +26,19 @@ select * from login('testuser1', 'testpassword1');
 
 
 -- create Reimbursement ticket
-create or replace function openReimb(int amount integer, in description varchar, in receipt bytea, in author integer, in statusid integer, in statustypeid integer) returns integer as $passed_id$
+create or replace function openReimb(in amount integer, in description varchar, in author integer, in statustype integer, in status integer) returns integer as $passed_id$
 declare passed_id integer;
 	begin
-		insert into "ers_reimbursement" (reimb_amount, reimb_description, reimb_receipt, reimb_author, reimb_status_id, reimb_type_id)
-		values ($1, $2, $3, $4, $5, $6)
+		insert into "ers_reimbursement" (reimb_amount, reimb_description, reimb_author, reimb_type_id, reimb_status_id)
+		values ($1, $2, $3, $4, $5)
 		returning reimb_status_id into passed_id;
+		return passed_id;
 	end;
 $passed_id$ language plpgsql;
+
+drop function openReimb(integer, varchar, integer, integer, integer);
+
+select * openReimb('400', 'test', '1', '3', )
 
 --manual insert test
 insert into 
