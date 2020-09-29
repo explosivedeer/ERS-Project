@@ -37,3 +37,53 @@ Database will return ERS_USERS_ID if username/password combination is valid. Oth
 		}
 		return true;
 ```
+
+### Create Reimbursement:
+To create a Reimbursement a user needs to fill out the following fields:
+"amount" (integer)
+"description" (string)
+"type" (integer)
+
+The application should automatically handle getting the:
+"author" (integer)
+"status" (integer) (defaults to pending when a ticket is first created)
+
+**Example of interacting with create(t) method.**
+```java
+System.out.println("create(t)");
+		Reimbursement reimb = new Reimbursement();
+		User user = new User();
+		System.out.println("amount:");
+		reimb.setAmount(sc.nextInt());
+		System.out.println("description:");
+		reimb.setDescription(sc.next());
+		user.setId(1); //testing id of 1
+		System.out.println("You are logged in as: " + user.getId());
+		reimb.setAuthor(user.getId());
+		reimb.setStatusid(1);
+		int status = reimb.getStatusid();
+		switch (status) {
+		case 1:
+			System.out.println("The ticket's status is now: Pending");
+			break;
+		case 2:
+			System.out.println("The ticket's status is now: Denied");
+			break;
+		case 3:
+			System.out.println("The ticket's status is now: Approved");
+			break;
+		default:
+			System.out.println("There was an error retreiving status!");
+			break;
+		}
+		
+		System.out.println("Ticket Type: (Enter number) \n"
+							+ "1. Lodging \n"
+							+ "2. Travel \n"
+							+ "3. Food \n"
+							+ "4. Other \n");
+		reimb.setTypeid(sc.nextInt());
+		
+		System.out.println("Your Reimbursement Ticket: ");
+		System.out.println(rs.create(reimb));
+```
