@@ -3,20 +3,19 @@ package com.ers.model;
 public class User {
 	
 	//fields we get from user
-	private int id;
 	private String username;
 	private String password;
 	
 	//fields we get from database
+	private int id;
 	private int role;
 	private String firstname;
 	private String lastname;
 	private String email;
 	
 	
-	public User(int id, String username, String password) {
+	public User(String username, String password) {
 		super();
-		this.id = id;
 		this.username = username;
 		this.password = password;
 	}
@@ -80,7 +79,7 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "{ \"user\":{\"id\":"+id+", \"username\": \""+username+"\", \"password\":\""+password+"\", \"role\":\""+username+"\"}}";
+		return "{ \"user\":{\"id\":"+id+", \"username\": \""+username+"\", \"role\":\""+role+"\"}}";
 	}
 	//This is formatting for JSON
 	

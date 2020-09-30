@@ -16,18 +16,8 @@ public class UserDao implements DaoContract<User, Integer> {
 	
 	@Override
 	public List<User> findAll() {
-		List<User> users = new LinkedList<>();
-		try(Connection conn = ConnectionUtil.getInstance().getConnection()) {
-			String sql = "select * from app_user";
-			PreparedStatement ps = conn.prepareStatement(sql);
-			ResultSet rs = ps.executeQuery();
-			while(rs.next()) {
-				users.add(new User(rs.getInt("id"), rs.getString("username"), rs.getString("passwd"))); //table column names
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return users;
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	// LOGIN METHOD:
@@ -56,6 +46,32 @@ public class UserDao implements DaoContract<User, Integer> {
 			e.printStackTrace();
 		}
 		return true;
+	}
+	
+	@Override
+	public int getRole(User t) {
+		Connection conn;
+		int resultRole = 0;
+		try {
+			conn = ConnectionUtil.getInstance().getConnection();
+			String sql = "{? = call getRole(?)}";
+			CallableStatement cs = conn.prepareCall(sql);
+			cs.registerOutParameter(1, Types.INTEGER);
+			cs.setString(2, t.getUsername());
+			
+			cs.execute();
+			
+			resultRole = cs.getInt(1);
+			if (resultRole == -1) {
+				return resultRole;
+			}
+			t.setRole(resultRole);
+			cs.close();
+			conn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return resultRole;
 	}
 	
 	@Override
@@ -94,20 +110,8 @@ public class UserDao implements DaoContract<User, Integer> {
 	
 	@Override
 	public User findByUsername(String username) {
-		User u = null;
-		try(Connection conn = ConnectionUtil.getInstance().getConnection()) {
-			String sql = "select * from app_user where username = ?";
-			PreparedStatement ps = conn.prepareStatement(sql);
-			ps.setString(1,  username);
-			ResultSet rs = ps.executeQuery();
-			while(rs.next()) {
-				u = new User(rs.getInt(1), rs.getString(2), rs.getString(3));
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		
-		return u;
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

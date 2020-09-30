@@ -24,6 +24,26 @@ select * from ers_users;
 select * from ers_users where ers_username = 'testuser1';
 select * from login('testuser1', 'testpassword1');
 
+-- Grab User Role
+create or replace function getRole(in username varchar) returns integer as $passed_role$
+declare verify boolean;
+declare passed_role integer;
+	begin
+		passed_role := -1;
+		select ERS_USERS.ERS_USERNAME = $1
+		from ERS_USERS
+		where ERS_USERS.ERS_USERNAME = $1
+		into verify;
+			if verify = true then
+				select USER_ROLE_ID from ERS_USERS where ERS_USERS.ERS_USERNAME = $1
+				into passed_role;
+				return passed_role;
+			end if;
+		return passed_role;
+	end
+$passed_role$ language plpgsql;
+
+select * from getRole('testuser1');
 
 -- create Reimbursement ticket
 create or replace function openReimb(in amount integer, in description varchar, in author integer, in statustype integer, in status integer) returns integer as $passed_id$
@@ -44,3 +64,5 @@ select * openReimb('400', 'test', '1', '3', )
 insert into 
 	"ers_reimbursement" (reimb_amount, reimb_description, reimb_receipt, reimb_author, reimb_status_id, reimb_type_id) 
 	values ('500', 'test ticket', '', '1', '1', '1');
+	
+-- fi
