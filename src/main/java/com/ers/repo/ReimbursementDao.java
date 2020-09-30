@@ -98,4 +98,10 @@ public class ReimbursementDao implements DaoContract<Reimbursement, Integer> {
 		return null;
 	}
 
+	@Override
+	public int getRole(Reimbursement t) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 }

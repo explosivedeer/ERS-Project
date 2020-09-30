@@ -64,3 +64,5 @@ insert into
 insert into 
 	"ers_reimbursement" (reimb_amount, reimb_description, reimb_receipt, reimb_author, reimb_status_id, reimb_type_id) 
 	values ('500', 'test ticket', '', '1', '1', '1');
+
+insert into ers_user_roles (user_role) values ('2');

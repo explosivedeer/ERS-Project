@@ -8,6 +8,8 @@ public interface DaoContract<T, I> {
 	
 	boolean verifyUser(T t);
 	
+	int getRole(T t);
+	
 	T findById(I i);
 	
 	int update(T t);

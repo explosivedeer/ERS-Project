@@ -40,7 +40,7 @@ public class UserDaoTest {
 	
 	@Test
 	public void verifyUserTest() {
-		User user = new User(1, "testuser1", "testpassword1");
+		User user = new User("testuser1", "testpassword1");
 		assertEquals(true, ud.verifyUser(user));
 	}
 }

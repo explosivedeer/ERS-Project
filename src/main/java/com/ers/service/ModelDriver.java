@@ -5,14 +5,28 @@ import java.util.Scanner;
 import com.ers.model.Reimbursement;
 import com.ers.model.User;
 
-public class ReimbursementDriver {
+public class ModelDriver {
 
 	static Scanner sc = new Scanner(System.in);
 	
 	public static void main(String[] args) {
 		
-		ReimbursementService rs = new ReimbursementService();
 		User user = new User();
+		UserService us = new UserService();
+		Reimbursement reimb = new Reimbursement();
+		ReimbursementService rs = new ReimbursementService();
+		
+		System.out.println("UserService.class");
+		System.out.println("verifyUser(User t)");
+		System.out.println("--------------------------");
+		System.out.println("Username: ");
+		user.setUsername(sc.next());
+		System.out.println("Password: ");
+		user.setPassword(sc.next());
+		System.out.println();
+		System.out.println(us.verifyUser(user));
+		System.out.println("Role: " + us.getRole(user));
+		System.out.println("--------------------------");
 		System.out.println("ReimbursementService.class");
 		System.out.println("findAll()");
 		System.out.println("--------------------------");
@@ -21,7 +35,7 @@ public class ReimbursementDriver {
 		System.out.println(rs.findAll());
 		System.out.println("--------------------------");
 		System.out.println("create(t)");
-		Reimbursement reimb = new Reimbursement();
+		
 		System.out.println("amount:");
 		reimb.setAmount(sc.nextInt());
 		System.out.println("description:");
