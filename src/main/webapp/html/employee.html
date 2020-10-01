@@ -2,16 +2,201 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>employee</title>
-<link rel="stylesheet" href="">
-<script src="../js/employee.js></script>
-
+<title>employee page</title>
+<!-- place bootstrap stylesheet reference here -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="../css/employee.css">
+<script src="../js/employee.js"></script>
 </head>
-
+<body style = "Background-color:blue">
 <body>
-<header>
-<h1>Welcome to the Employee Page</h1>
+  <header>
+<div class="header">
+  <h1>Welcome to the Employee Page </h1>
+</div>
+         
+    </header>
+    <form name="ticketForm" action="ticket.app" method="POST">
+<div class="">
+    <h3>Create a New Ticket</h3>
+    <div class="justify-content-center" id="formDisplay">
+    <form name="createTicket" action="" method="">
+      
+      <div class="row">
+    <label class="col-sm-2 col-form-label" for="username"><strong>Username: </strong></label>
+      <div class="col-sm-4">
+    <input name="user" type="text" placeholder="Username" required>
+      </div>
+      </div>
+    <br>
+   <div class="form-check form-check-inline">
+  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+  <label class="form-check-label" for="inlineRadio1">lodging</label>
+</div>
+<div class="form-check form-check-inline">
+  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+  <label class="form-check-label" for="inlineRadio2">travel</label>
+</div>
+<div class="form-check form-check-inline">
+  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3">
+  <label class="form-check-label" for="inlineRadio3">food</label>
+</div>
+<div class="form-check form-check-inline">
+  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3">
+  <label class="form-check-label" for="inlineRadio3">other</label>
+</div>
+      </div>
+    </div>
+    <br>
+      
+      <div class="row">
+    <label class="col-sm-2 col-form-label"><strong>Amount: </strong></label>
+        <div class="col-sm-4">
+    <input name= "amount" type="number">
+      </div>
+      </div>
+    <br>
+      
+      <div class="row">
+    <label class="col-sm-2 col-form-label"><strong>Submit Date:</strong></label>
+        <div class="col-sm-4">
+    <input name="date" type="date">
+        </div>
+      </div>
+    <br>
+      
+      <div class="row">
+    <label class="col-sm-2 col-form-label"><strong>Description: </strong></label>
+        <div class="col-sm-4">
+    <textarea class="form-control" name= "description" id="description" rows="3"></textarea>
+        </div>
+      </div>
+      <br>
+      
+      <button type="submit" value="createTicket" class="btn btn-primary justify-content-center">Create Ticket</button>
+      <!-- submit to server data -->
+      </form>	
+  </div>
+<section class="gatedContent">
+  <div class="container">
+                  <p><button class="btn btn-primary" type="button" onclick="openTable()">View Current Tickets</button>
+                  <button class="btn btn-secondary" type="button" onclick="closeTable()">Close</button>
+</p>
+    <div id="tableDisplay">
+ <table id="ticketGen" class="table table-striped">
+   <thead>
+     <tr>
+       <th id="reimbID" scope="col">ReimbursementID</th>
+       <th id="username" scope="col">Username</th>
+       <th id="reimType" scope="col">Reimbursement Type</th>
+       <th id="submitDate" scope="col">Submit Date</th>
+       <th id="resolveDate" scope="col">Resolved Date</th>
+       <th id="description" scope="col">Description</th>
+       <th id="status" scope="col">Status</th>
+       <th id="amount" scope="col">Amount</th>
+     </tr>
+   </thead>
+   <tbody>
+   <tr>
+   <td></td>
+   <td></td>
+   <td></td>
+   <td></td>
+   <td></td>
+   <td></td>
+   <td></td>
+   <td></td>
+   </tr>
+   
 
+   </tbody>
+   <!-- this is where this goes <c:forEach var="" items="${requestScope.ticketList}">
+  <tr>
+    <td>${ticket[0]}</td>
+    <td>${ticket[1]}</td>
+    <td>${ticket[2]}</td>
+    <td>${ticket[3]}</td>
+    <td>${ticket[4]}</td>
+    <td>${ticket[5]}</td>
+    <td>${ticket[6]}</td>
+    <td>${ticket[7]}</td>
+    <td>${ticket[8]}</td>
+   </tr>
+</c:forEach>
+-->
+        </table>
+        
+        <p id="test"></p>
+        
+        <script type="text/javascript">
+        	const rankingsBody = document.querySelector("#ticketGen > tbody");
+        	
+        	console.log(rankingsBody);
+        	
 
+        	
+        	
+        	
+        	function loadRankings () {
+        		const request = new XMLHttpRequest();
+        		
+        		request.open("get", "/ReimbursementProject/currentTicket.json");
+        		request.onload = () => {
+        			try{
+        				console.log(request.responseText);
+						const json = JSON.parse(request.responseText);
+						console.log(json);
+						console.log(Object.values(json));
+        				populateRankings(json);
+        				
+   
+        			}catch(e){
+        				console.warn(e)
+        			}
+        		};        		
+        		request.send();
+        	}
+        	
+        	
+        	/*  function populateRankings(json){
+        		console.log(json);
+        	} */
+        	
+        	
+         	  function populateRankings(json){
+        		
+        		
+        		
+        		while(rankingsBody.firstChild){
+        			rankingsBody.removeChild(rankingsBody.firstChild);
+        		}
+        		
+        		
+        		json.forEach((row) => {
+        			row.resolved = row.resolved || "Unresolved";
+        			const tr = document.createElement("tr");
+        			console.log(Object.keys(row));
+        			  Object.keys(row).forEach((cell) => {
+        				const td = document.createElement("td");
+        				td.textContent = row[cell];
+        				tr.appendChild(td);
+        			});  
+        			rankingsBody.appendChild(tr);
+        		})
+        		
+        	}
+        	
+        	document.addEventListener("DOMContentLoaded",() => {loadRankings();});   
+        
+        	
+        	
+        	</script>
+        <div id = "result"></div>
+        
+      </div>
+    </div>
+  </div>
+  </form>
+  </section>
 </body>
 </html>
