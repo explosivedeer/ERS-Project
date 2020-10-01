@@ -13,7 +13,7 @@ public class RequestDispatcher {
 		case "/ERSystem/user.json":
 			new UserController().findAllUsers(req, resp);
 			break;
-		case "/ERSystem/login.json":
+		case "/ERS/login.json":
 			new AuthController().login(req, resp);
 		}
 	}
@@ -22,10 +22,10 @@ public class RequestDispatcher {
 		System.out.println(req.getRequestURI());
 		
 		switch (req.getRequestURI()) {
-		case "/ERSystem/home.app":
+		case "/ERS/home.app":
 			System.out.println("You hit me");
-			return "html/index.html";
-		case "/ERSystem/session.app":
+			return "html/login.html";
+		case "/ERS/session.app":
 			return "html/session.html";
 		default:
 			System.out.println("defaulted???");

@@ -25,11 +25,11 @@ public class SessionServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		HttpSession sess = req.getSession();
 		switch (req.getRequestURI()) {
-		case "/ERSystem/login.sess":
+		case "/ERS/login.sess":
 			sess.setAttribute("username", req.getParameter("username"));
 			sess.setAttribute("pass", req.getParameter("password"));
 			break;
-		case "/ERSystem/invalidate.sess":
+		case "/ERS/invalidate.sess":
 			sess.invalidate();
 		}
 	}
