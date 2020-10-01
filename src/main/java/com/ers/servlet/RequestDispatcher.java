@@ -23,13 +23,13 @@ public class RequestDispatcher {
 		System.out.println(req.getRequestURI());
 		
 		switch (req.getRequestURI()) {
-		case "/ReimbursementProject/html/login.app":
+		case "/ERS/html/login.app":
 			return new AuthController().login(req);
-		case "/ReimbursementProject/html/reimbursement.app":
+		case "/ERS/html/reimbursement.app":
 			return new ReimbursementController().createReimbursement(req);
-		case "/ReimbursementProject/html/updateStatus.app":
+		case "/ERS/html/updateStatus.app":
 			return new ReimbursementController().updateReimbursementStatus(req);
-		case "/ReimbursementProject/anything.app":
+		case "/ERS/anything.app":
 			return "/webapp/html/404-page.html";
 		default:
 			return "/webapp/html/404-page.html";
