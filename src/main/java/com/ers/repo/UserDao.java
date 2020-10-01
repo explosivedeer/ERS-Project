@@ -16,68 +16,18 @@ public class UserDao implements DaoContract<User, Integer> {
 	
 	@Override
 	public List<User> findAll() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
-	// LOGIN METHOD:
-	@Override
-	public boolean verifyUser(User t) {
-		Connection conn;
-		int resultId = 0;
-		try {
-			conn = ConnectionUtil.getInstance().getConnection();
-			String sql = "{? = call login(?,?)}";
-			CallableStatement cs = conn.prepareCall(sql);
-			cs.registerOutParameter(1, Types.INTEGER);
-			cs.setString(2, t.getUsername());
-			cs.setString(3, t.getPassword());
-			
-			cs.execute();
-			
-			resultId = cs.getInt(1);
-			if (resultId == -1) {
-				return false;
+		List<User> users = new LinkedList<>();
+		try(Connection conn = ConnectionUtil.getInstance().getConnection()) {
+			String sql = "select * from ers_users";
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()) {
+				users.add(new User(rs.getString("ers_username"), rs.getString("ers_password"), rs.getString("user_first_name"), rs.getString("user_last_name"), rs.getString("user_email"), rs.getInt("ers_users_id"), rs.getInt("user_role_id"))); //table column names
 			}
-			t.setId(resultId);
-			cs.close();
-			conn.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return true;
-	}
-	
-	@Override
-	public int getRole(User t) {
-		Connection conn;
-		int resultRole = 0;
-		try {
-			conn = ConnectionUtil.getInstance().getConnection();
-			String sql = "{? = call getRole(?)}";
-			CallableStatement cs = conn.prepareCall(sql);
-			cs.registerOutParameter(1, Types.INTEGER);
-			cs.setString(2, t.getUsername());
-			
-			cs.execute();
-			
-			resultRole = cs.getInt(1);
-			if (resultRole == -1) {
-				return resultRole;
-			}
-			t.setRole(resultRole);
-			cs.close();
-			conn.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return resultRole;
-	}
-	
-	@Override
-	public int update(User t) {
-		// TODO Auto-generated method stub
-		return 0;
+		return users;
 	}
 	
 	@Override
@@ -87,19 +37,9 @@ public class UserDao implements DaoContract<User, Integer> {
 	}
 	
 	@Override
-	public int create(User t) {
-		int result = -1;
-		try(Connection conn = ConnectionUtil.getInstance().getConnection()) {
-			String sql = "insert into app_user (username, passwd) values (?,?)";
-			PreparedStatement ps = conn.prepareStatement(sql);
-			ps.setString(1, t.getUsername());
-			ps.setString(2, t.getPassword());
-			result = ps.executeUpdate();
-			ps.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return result;
+	public int update(User t) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 	
 	@Override
@@ -109,9 +49,76 @@ public class UserDao implements DaoContract<User, Integer> {
 	}
 	
 	@Override
-	public User findByUsername(String username) {
+	public User insert(User t) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	public User verifyUser(String username, String password) {
+		User user = null;
+		Connection conn;
+		int resultId = 0;
+		try {
+			conn = ConnectionUtil.getInstance().getConnection();
+			String sqlCall = "{? = call login(?,?)}";
+			CallableStatement cs = conn.prepareCall(sqlCall);
+			cs.registerOutParameter(1, Types.INTEGER);
+			cs.setString(2, username);
+			cs.setString(3, password);
+			
+			cs.execute();
+			
+			resultId = cs.getInt(1);
+			if (resultId == -1) {
+				return user;
+			}
+			cs.close();
+			
+			String sqlState = "select * from ers_users";
+			PreparedStatement ps = conn.prepareStatement(sqlState);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				user = new User(
+						rs.getString("ers_username"),
+						rs.getString("ers_password"),
+						rs.getString("user_first_name"), 
+						rs.getString("user_last_name"),
+						rs.getString("user_email"),
+						rs.getInt("ers_users_id"),
+						rs.getInt("user_role_id"));
+			}
+			ps.close();
+			rs.close();
+			conn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return user;
+	}
+	
+	public int getRole(String username) {
+		Connection conn;
+		int resultRole = 0;
+		try {
+			conn = ConnectionUtil.getInstance().getConnection();
+			String sql = "{? = call getRole(?)}";
+			CallableStatement cs = conn.prepareCall(sql);
+			cs.registerOutParameter(1, Types.INTEGER);
+			cs.setString(2, username);
+			
+			cs.execute();
+			
+			resultRole = cs.getInt(1);
+			if (resultRole == -1) {
+				return resultRole;
+			}
+			
+			cs.close();
+			conn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return resultRole;
 	}
 
 }

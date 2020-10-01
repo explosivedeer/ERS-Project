@@ -22,25 +22,9 @@ public class UserDaoTest {
 		ud = new UserDao();
 	}
 	
-	//We need to test the insert statement, but the username must be unique due to constraint created in the postgresql database.
-//	@Test
-//	public void InsertTest() {
-//		User user = new User(0, LocalDateTime.now().toString(), "password");
-//		int in = ud.create(user);
-//		assertTrue(in>0);
-//	}
-//	
-//	@Test
-//	public void findAllTest() {
-//		List<User> users = ud.findAll();
-//		assertNotNull(users);
-//		assertNotEquals(0, users.size());
-//		System.out.println(users);
-//	}
 	
 	@Test
 	public void verifyUserTest() {
-		User user = new User("testuser1", "testpassword1");
-		assertEquals(true, ud.verifyUser(user));
+		assertEquals(true, ud.verifyUser("testuser1", "testpassword1"));
 	}
 }

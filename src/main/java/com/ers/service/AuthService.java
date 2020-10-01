@@ -11,9 +11,13 @@ public class AuthService {
 		ud = new UserDao();
 	}
 	
-	public boolean login(String username, String password) {
-		User u = ud.findByUsername(username);
+	public boolean verifyUser(String username, String password) {
+		User u = ud.verifyUser(username, password);
 		return password.equals(u.getPassword());
+	}
+	
+	public int getRole(String username) {
+		return ud.getRole(username);
 	}
 	
 }

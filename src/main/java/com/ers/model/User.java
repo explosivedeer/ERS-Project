@@ -14,10 +14,15 @@ public class User {
 	private String email;
 	
 	
-	public User(String username, String password) {
+	public User(String username, String password, String firstname, String lastname, String email, int id, int role) {
 		super();
 		this.username = username;
 		this.password = password;
+		this.firstname = firstname;
+		this.lastname = lastname;
+		this.email = email;
+		this.id = id;
+		this.role = role;
 	}
 	
 	public User() {
@@ -79,7 +84,7 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "{ \"user\":{\"id\":"+id+", \"username\": \""+username+"\", \"role\":\""+role+"\"}}";
+		return "{ \"user\":{\"username\": \""+username+"\", \"firstname\": \""+firstname+"\", \"lastname\": \""+lastname+"\", \"email\": \""+email+"\", \"id\":"+id+", \"role\":\""+role+"\"}}";
 	}
 	//This is formatting for JSON
 	
