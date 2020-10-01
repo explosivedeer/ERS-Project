@@ -4,17 +4,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.ers.controller.AuthController;
+import com.ers.controller.ReimbursementController;
 import com.ers.controller.UserController;
 
 public class RequestDispatcher {
 
 	public static void dataRetriever(HttpServletRequest req, HttpServletResponse resp) {
 		switch (req.getRequestURI()) {
-		case "/ERSystem/user.json":
-			new UserController().findAllUsers(req, resp);
+		case "/ERS/currentReimbursement.json":
+			new ReimbursementController().findByUsername(req, resp);
 			break;
-		case "/ERS/login.json":
-			new AuthController().login(req, resp);
+		case "/ERS/pendingReimbursement.json":
+			new ReimbursementController().seePending(req, resp);
 		}
 	}
 
@@ -22,16 +23,16 @@ public class RequestDispatcher {
 		System.out.println(req.getRequestURI());
 		
 		switch (req.getRequestURI()) {
-		case "/ERS/home.app":
-			System.out.println("You hit me");
-			return "html/login.html";
-		case "/ERS/session.app":
-			return "html/session.html";
+		case "/ReimbursementProject/html/login.app":
+			return new AuthController().login(req);
+		case "/ReimbursementProject/html/reimbursement.app":
+			return new ReimbursementController().createReimbursement(req);
+		case "/ReimbursementProject/html/updateStatus.app":
+			return new ReimbursementController().updateReimbursementStatus(req);
+		case "/ReimbursementProject/anything.app":
+			return "/webapp/html/404-page.html";
 		default:
-			System.out.println("defaulted???");
-			System.out.println(req);
-			return "html/404-page.html";
+			return "/webapp/html/404-page.html";
 		}
-		// return "html/index.html";
 	}
 }

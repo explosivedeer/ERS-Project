@@ -1,5 +1,7 @@
 package com.ers.service;
 
+import java.util.List;
+
 import com.ers.model.User;
 import com.ers.repo.UserDao;
 
@@ -11,11 +13,7 @@ public class UserService {
 		ud = new UserDao();
 	}
 	
-	public boolean verifyUser(User t) {
-		return ud.verifyUser(t);
-	}
-	
-	public int getRole(User t) {
-		return ud.getRole(t);
+	public List<User> findAll() {
+		return ud.findAll();
 	}
 }
