@@ -27,6 +27,9 @@ public class RequestDispatcher {
 			return "html/index.html";
 		case "/ERSystem/session.app":
 			return "html/session.html";
+			
+		case "/ERSystem/welcome.app":
+			return new AuthController().login(req);
 		default:
 			System.out.println("defaulted???");
 			System.out.println(req);
