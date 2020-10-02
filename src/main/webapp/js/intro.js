@@ -1,5 +1,6 @@
 const btn1 = document.getElementById('btn1');
 
+
 async function getUser(){
 	const u = await fetch('http://localhost:8080/NewWebServer/user.data');
 	const json = await u.json();
